@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class Message
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Unique message identifier.

@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class UserProfilePhotos
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Total number of profile pictures the target user has.

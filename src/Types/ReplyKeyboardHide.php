@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class ReplyKeyboardHide
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Requests clients to hide the custom keyboard.

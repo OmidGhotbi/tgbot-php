@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class ReplyKeyboardMarkup
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Array of button rows, each represented by an Array of Strings.

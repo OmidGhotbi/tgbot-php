@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class Sticker
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Unique identifier for this file.

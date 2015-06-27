@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class Update
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially.

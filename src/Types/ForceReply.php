@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class ForceReply
 {
-    use \Pathetic\TgBot\TypeInitialization;
+    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'.
