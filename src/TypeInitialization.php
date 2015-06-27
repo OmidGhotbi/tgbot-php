@@ -54,15 +54,19 @@ trait TypeInitialization
                             case 'photo':
                             case 'photos':
                             case 'new_chat_photo':
-                                // $array = [];
                                 
-                                // foreach ($value as $photoSize) {
-                                //     $array[] = new $needToBeConvertedInObject[$property][0]($value);
-                                // }
+                                $array = [];
                                 
-                                // $this->$property = $array;
-                                
-                                $this->$property = $value;
+                                foreach ($value as $photoSize) {
+                                    $nestedArray = [];
+                                    foreach ($photoSize as $photoArray) {
+                                        $nestedArray[] = new $needToBeConvertedInObject[$property][0]($photoArray);
+                                    }
+                                    $array[] = $nestedArray;
+                                    unset($nestedArray);
+                                };
+
+                                $this->$property = $array;
                                 break;
                         }
                     } else {

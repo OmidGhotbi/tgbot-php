@@ -47,7 +47,7 @@ class Bot
             throw new TgBotException($response['description'], $response['error_code']);
         }
         
-        return $response;
+        return $response['result'];
     }
     
     /**
@@ -254,6 +254,6 @@ class Bot
      */
     public function getUserProfilePhotos($user_id, $offset = null, $limit = null)
     {
-        return new UserProfilePhotos($this->request('UserProfilePhotos', compact('user_id', 'offset', 'limit')));
+        return new UserProfilePhotos($this->request('getUserProfilePhotos', compact('user_id', 'offset', 'limit')));
     }
 }
