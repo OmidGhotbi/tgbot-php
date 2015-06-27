@@ -2,7 +2,9 @@
 
 namespace Pathetic\TgBot;
 
+use Closure;
 use GuzzleHttp\Client;
+use Pathetic\TgBot\EventSystem;
 use Pathetic\TgBot\Exception as TgBotException;
 use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\Message;
@@ -23,15 +25,24 @@ class Bot
      */
     protected $httpClient;
     
+    /**
+     * @var \Pathetic\TgBot\EventSystem
+     */
+    protected $events;
+    
+    /**
+     * @param string $token
+     */
     public function __construct($token)
     {
         $this->token = $token;
         $this->httpClient = new Client();
+        $this->events = new EventSystem();
     }
     
     /**
-     * @var string $method
-     * @var array  $parameters
+     * @param string $method
+     * @param array  $parameters
      * 
      * @throws \Pathetic\TgBot\Exception
      */
@@ -52,8 +63,8 @@ class Bot
     }
     
     /**
-     * @var string $method
-     * @var array  $parameters
+     * @param string $method
+     * @param array  $parameters
      * 
      * @throws \Pathetic\TgBot\Exception
      */
@@ -86,11 +97,11 @@ class Bot
     /**
      * Use this method to send text messages. On success, the sent Message is returned.
      * 
-     * @var integer  $chat_id                   Unique identifier for the message recipient — User or GroupChat id.
-     * @var string   $text                      Text of the message to be sent.
-     * @var boolean  $disable_web_page_preview  Disables link previews for links in this message.
-     * @var integer|null  $reply_to_message_id  If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer  $chat_id                   Unique identifier for the message recipient — User or GroupChat id.
+     * @param string   $text                      Text of the message to be sent.
+     * @param boolean  $disable_web_page_preview  Disables link previews for links in this message.
+     * @param integer|null  $reply_to_message_id  If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      * 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -102,9 +113,9 @@ class Bot
     /**
      * Use this method to forward messages of any kind. On success, the sent Message is returned.
      * 
-     * @var integer $chat_id      Unique identifier for the message recipient — User or GroupChat id.
-     * @var integer $from_chat_id Unique identifier for the chat where the original message was sent — User or GroupChat id.
-     * @var integer $message_id   Unique message identifier.
+     * @param integer $chat_id      Unique identifier for the message recipient — User or GroupChat id.
+     * @param integer $from_chat_id Unique identifier for the chat where the original message was sent — User or GroupChat id.
+     * @param integer $message_id   Unique message identifier.
      * 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -116,11 +127,11 @@ class Bot
     /**
      * Use this method to send photos. On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id  Unique identifier for the message recipient — User or GroupChat id.
-     * @var string       $photo    Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
-     * @var string|null  $caption  Photo caption (may also be used when resending photos by file_id).
-     * @var integer|null $reply_to_message_id If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id  Unique identifier for the message recipient — User or GroupChat id.
+     * @param string       $photo    Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
+     * @param string|null  $caption  Photo caption (may also be used when resending photos by file_id).
+     * @param integer|null $reply_to_message_id If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      * 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -138,10 +149,10 @@ class Bot
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Document). On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @var string       $audio                 Audio file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
-     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param string       $audio                 Audio file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
+     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -158,10 +169,10 @@ class Bot
     /**
      * Use this method to send general files. On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @var string       $document              File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
-     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param string       $document              File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
+     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      * 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -178,10 +189,10 @@ class Bot
     /**
      * Use this method to send .webp stickers. On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @var string       $sticker               Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
-     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param string       $sticker               Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
+     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -198,10 +209,10 @@ class Bot
     /**
      * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @var string       $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
-     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param string       $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
+     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -218,11 +229,11 @@ class Bot
     /**
      * Use this method to send point on the map. On success, the sent Message is returned.
      * 
-     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @var float        $latitude              Latitude of location.
-     * @var float        $longitude             Longitude of location.
-     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
-     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param float        $latitude              Latitude of location.
+     * @param float        $longitude             Longitude of location.
+     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -234,8 +245,8 @@ class Bot
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). 
      * 
-     * @var integer $chat_id Unique identifier for the message recipient — User or GroupChat id.
-     * @var string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, find_location for location data.
+     * @param integer $chat_id Unique identifier for the message recipient — User or GroupChat id.
+     * @param string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, find_location for location data.
      * 
      * @return \Pathetic\TgBot\Types\Message
      */
@@ -247,9 +258,9 @@ class Bot
     /**
      * Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
      * 
-     * @var integer      $user_id Unique identifier of the target user.
-     * @var integer|null $offset  Sequential number of the first photo to be returned. By default, all photos are returned.
-     * @var integer|null $limit   Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+     * @param integer      $user_id Unique identifier of the target user.
+     * @param integer|null $offset  Sequential number of the first photo to be returned. By default, all photos are returned.
+     * @param integer|null $limit   Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
      * 
      * @return \Pathetic\TgBot\Types\UserProfilePhotos
      */
@@ -261,9 +272,9 @@ class Bot
     /**
      * Use this method to receive incoming updates using long polling (wiki). An Array of Update objects is returned.
      * 
-     * @var integer|null $offset  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id.
-     * @var integer|null $limit   Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100
-     * @var integer|null $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling
+     * @param integer|null $offset  Identifier of the first update to be returned. Must be greater by one than the highest among the identifiers of previously received updates. By default, updates starting with the earliest unconfirmed update are returned. An update is considered confirmed as soon as getUpdates is called with an offset higher than its update_id.
+     * @param integer|null $limit   Limits the number of updates to be retrieved. Values between 1—100 are accepted. Defaults to 100
+     * @param integer|null $timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling
      * 
      * @return array
      */
@@ -285,12 +296,35 @@ class Bot
      * Whenever there is an update for the bot, we will send an HTTPS POST request to the specified url, containing a JSON-serialized Update.
      * In case of an unsuccessful request, we will give up after a reasonable amount of attempts.
      * 
-     * @var string|null $url
+     * @param string|null $url
      * 
      * @return boolean
      */
     public function setWebhook($url = null)
     {
         return $this->request('setWebhook', compact('url'));
+    }
+    
+    /**
+     * @param \Closure|null $check
+     * @param \Closure      $event
+     * 
+     * @return \Pathetic\TgBot\Bot
+     */
+    public function on($check, Closure $event)
+    {
+        $this->events->add($check, $event);
+        
+        return $this;
+    }
+    
+    /**
+     * @param array $updates
+     */
+    public function handle(array $updates)
+    {
+        foreach ($updates as $update) {
+            $this->events->handle($update->message);
+        }
     }
 }
