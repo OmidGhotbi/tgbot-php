@@ -1,0 +1,20 @@
+{
+    "name": "pathetic/tgbot",
+    "description": "Telegram Bot API Wrapper.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "pathetic",
+            "email": "pathetic.underscore@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pathetic\\TgBot\\": "src/"
+        }
+    }
+}
