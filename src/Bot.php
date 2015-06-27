@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Pathetic\TgBot\Exception as TgBotException;
 use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\Message;
+use Pathetic\TgBot\Types\UserProfilePhotos;
 
 class Bot
 {
@@ -240,5 +241,19 @@ class Bot
     public function sendChatAction($chat_id, $action)
     {
         return new Message($this->request('sendChatAction', compact('chat_id', 'action')));
+    }
+    
+    /**
+     * Use this method to get a list of profile pictures for a user. Returns a UserProfilePhotos object.
+     * 
+     * @var integer      $user_id Unique identifier of the target user.
+     * @var integer|null $offset  Sequential number of the first photo to be returned. By default, all photos are returned.
+     * @var integer|null $limit   Limits the number of photos to be retrieved. Values between 1—100 are accepted. Defaults to 100.
+     * 
+     * @return \Pathetic\TgBot\Types\UserProfilePhotos
+     */
+    public function getUserProfilePhotos($user_id, $offset = null, $limit = null)
+    {
+        return new UserProfilePhotos($this->request('UserProfilePhotos', compact('user_id', 'offset', 'limit')));
     }
 }
