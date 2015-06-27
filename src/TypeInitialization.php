@@ -24,7 +24,7 @@ trait TypeInitialization
             'forward_from' => User::class,
             'reply_to_message' => Message::class,
             'audio' => Audio::class,
-            'document' => Docuemnt::class,
+            'document' => Document::class,
             'photo' => [PhotoSize::class],
             'photos' => [PhotoSize::class],
             'sticker' => Sticker::class,
@@ -39,7 +39,6 @@ trait TypeInitialization
         
         foreach ($properties as $property => $value) {
             if (null !== $value) {
-                
                 if (isset($needToBeConvertedInObject[$property])) {
                     if (is_array($needToBeConvertedInObject[$property])) {
                         switch ($property) {

@@ -30,23 +30,18 @@ trait PropertiesEasyAccess
                 case \Pathetic\TgBot\Types\Sticker::class:
                 case \Pathetic\TgBot\Types\Video::class:
                     return $this->file_id;
-                    break;
                     
                 case \Pathetic\TgBot\Types\Contact::class:
                     return $this->user_id;
-                    break;
                     
                 case \Pathetic\TgBot\Types\Message::class:
                     return $this->message_id;
-                    break;
                     
                 case \Pathetic\TgBot\Types\Update::class:
                     return $this->update_id;
-                    break;
                     
                 default:
                     return null;
-                    break;
                 
             }
         }
