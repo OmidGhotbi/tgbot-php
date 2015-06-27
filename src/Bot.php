@@ -6,10 +6,10 @@ use Closure;
 use GuzzleHttp\Client;
 use Pathetic\TgBot\EventSystem;
 use Pathetic\TgBot\Exception as TgBotException;
-use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\Message;
-use Pathetic\TgBot\Types\UserProfilePhotos;
 use Pathetic\TgBot\Types\Update;
+use Pathetic\TgBot\Types\User;
+use Pathetic\TgBot\Types\UserProfilePhotos;
 
 class Bot
 {
@@ -326,5 +326,13 @@ class Bot
         foreach ($updates as $update) {
             $this->events->handle($update->message);
         }
+    }
+    
+    /**
+     * @return array
+     */
+    public function createUpdateFromRequest()
+    {
+        return [new Update(json_decode(file_get_contents('php://input'), true))];
     }
 }
