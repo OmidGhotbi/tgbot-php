@@ -23,7 +23,7 @@ trait PropertiesEasyAccess
         }
         
         if ('id' == $property) {
-            switch (self::class) {
+            switch (get_called_class()) {
                 case \Pathetic\TgBot\Types\Audio::class:
                 case \Pathetic\TgBot\Types\Document::class:
                 case \Pathetic\TgBot\Types\PhotoSize::class:
