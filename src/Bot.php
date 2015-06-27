@@ -132,4 +132,113 @@ class Bot
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
+    
+    /**
+     * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Document). On success, the sent Message is returned.
+     * 
+     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @var string       $audio                 Audio file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
+     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendAudio($chat_id, $audio, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return new Message($this->requestWithFile('sendAudio', [
+            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'audio', 'contents' => $audio],
+            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_markup', 'contents' => $reply_markup]
+        ]));
+    }
+    
+    /**
+     * Use this method to send general files. On success, the sent Message is returned.
+     * 
+     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @var string       $document              File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
+     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     * 
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendDocument($chat_id, $document, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return new Message($this->requestWithFile('sendAudio', [
+            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'document', 'contents' => $document],
+            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_markup', 'contents' => $reply_markup]
+        ]));
+    }
+    
+    /**
+     * Use this method to send .webp stickers. On success, the sent Message is returned.
+     * 
+     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @var string       $sticker               Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
+     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     *
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendSticker($chat_id, $sticker, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return new Message($this->requestWithFile('sendAudio', [
+            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'sticker', 'contents' => $sticker],
+            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_markup', 'contents' => $reply_markup]
+        ]));
+    }
+    
+    /**
+     * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned.
+     * 
+     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @var string       $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
+     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     *
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendVideo($chat_id, $video, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return new Message($this->requestWithFile('sendAudio', [
+            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'video', 'contents' => $video],
+            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_markup', 'contents' => $reply_markup]
+        ]));
+    }
+    
+    /**
+     * Use this method to send point on the map. On success, the sent Message is returned.
+     * 
+     * @var integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @var float        $latitude              Latitude of location.
+     * @var float        $longitude             Longitude of location.
+     * @var integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @var \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+     *
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendLocation($chat_id, $latitude, $longitude, $reply_to_message_id = null, $reply_markup = null)
+    {
+        return new Message($this->request('sendLocation', compact('chat_id', 'latitude', 'longitude', 'reply_to_message_id', 'reply_markup')));
+    }
+    
+    /**
+     * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). 
+     * 
+     * @var integer $chat_id Unique identifier for the message recipient — User or GroupChat id.
+     * @var string  $action  Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, find_location for location data.
+     * 
+     * @return \Pathetic\TgBot\Types\Message
+     */
+    public function sendChatAction($chat_id, $action)
+    {
+        return new Message($this->request('sendChatAction', compact('chat_id', 'action')));
+    }
 }
