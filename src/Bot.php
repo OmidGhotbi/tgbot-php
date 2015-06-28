@@ -327,7 +327,7 @@ class Bot
      */
     public function command($name, Closure $action)
     {
-        $check = function($message) use ($name) {
+        $check = function(Message $message) use ($name) {
             if (!isset($message->text)) {
                 return false;
             }
@@ -339,7 +339,7 @@ class Bot
             return !empty($matches) && $matches[1] == $name;
         };
         
-        $event = function($message) use ($action) {
+        $event = function(Message $message) use ($action) {
             $regexp = '/^\/([^\s@]+)(@\S+)?\s?(.*)$/';
             
             preg_match($regexp, $message->text, $matches);
