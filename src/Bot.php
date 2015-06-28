@@ -3,6 +3,7 @@
 namespace Pathetic\TgBot;
 
 use Closure;
+use ReflectionFunction;
 use GuzzleHttp\Client;
 use Pathetic\TgBot\EventSystem;
 use Pathetic\TgBot\Exception as TgBotException;
@@ -313,6 +314,47 @@ class Bot
      */
     public function on($check, Closure $event)
     {
+        $this->events->add($check, $event);
+        
+        return $this;
+    }
+    
+    public function command($name, $action)
+    {
+        $check = function($message) use ($name) {
+            if (!isset($message->text)) {
+                return false;
+            }
+            
+            $regexp = '/^\/([^\s@]+)(@\S+)?\s?(.*)$/';
+            
+            preg_match($regexp, $message->text, $matches);
+            
+            return !empty($matches) && $matches[1] == $name;
+        };
+        
+        $event = function($message) use ($action) {
+            $regexp = '/^\/([^\s@]+)(@\S+)?\s?(.*)$/';
+            
+            preg_match($regexp, $message->text, $matches);
+            
+            if (isset($matches[3]) && !empty($matches[3])) {
+                $parameters = str_getcsv($matches[3], ' ');
+            } else {
+                $parameters = [];
+            }
+            
+            array_unshift($parameters, $message);
+            
+            $action = new ReflectionFunction($action);
+            
+            if (count($parameters) >= $action->getNumberOfRequiredParameters()) {
+                $action->invokeArgs($parameters);
+            }
+            
+            return false;
+        };
+        
         $this->events->add($check, $event);
         
         return $this;
