@@ -319,7 +319,13 @@ class Bot
         return $this;
     }
     
-    public function command($name, $action)
+    /**
+     * @param string    $name
+     * @param \Closure  $action
+     * 
+     * @return \Pathetic\TgBot\Bot
+     */
+    public function command($name, Closure $action)
     {
         $check = function($message) use ($name) {
             if (!isset($message->text)) {
@@ -339,7 +345,7 @@ class Bot
             preg_match($regexp, $message->text, $matches);
             
             if (isset($matches[3]) && !empty($matches[3])) {
-                $parameters = str_getcsv($matches[3], ' ');
+                $parameters = str_getcsv($matches[3], chr(32));
             } else {
                 $parameters = [];
             }
