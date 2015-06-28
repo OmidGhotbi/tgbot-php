@@ -11,7 +11,7 @@
 ```json
 {
   "require": {
-    "pathetic/tgbot": "dev-master
+    "pathetic/tgbot": "dev-master"
   }
 }
 ```
