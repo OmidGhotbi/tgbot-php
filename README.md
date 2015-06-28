@@ -26,6 +26,7 @@ $bot = new TgBot('token');
 # Commands
 
 # Usage: /echo "something"
+# You can even use default values: function($message, $something = "I don't know what to say.") {}
 $bot->command('echo', function($message, $something) use ($bot) {
     # You can use $message->from->firstName instead of $message->from->first_name
     $bot->sendMessage($message->chat->id, $message->from->first_name . " says: $something");
@@ -54,7 +55,7 @@ $bot->on(
     # This function will be executed if previous returned true.
     function($message) use ($bot) {
         # Reply to message.
-        $bot->sendMessage($message->chat->id, 'I love you..', null, $message->id);
+        $bot->sendMessage($message->chat->id, 'I love you.', null, $message->id);
         
         # If this function will return false, the cycle will be broken so no other events for current message will be triggered.
         return false;
