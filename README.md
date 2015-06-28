@@ -19,6 +19,8 @@
 # Usage
 
 ```php
+require_once 'vendor/autoload.php';
+
 use Pathetic\TgBot\Bot as TgBot;
 
 $bot = new TgBot('token');
