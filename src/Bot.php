@@ -179,7 +179,7 @@ class Bot
      */
     public function sendDocument($chat_id, $document, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendAudio', [
+        return new Message($this->requestWithFile('sendDocument', [
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'document', 'contents' => $document],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
