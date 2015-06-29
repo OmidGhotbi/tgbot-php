@@ -139,10 +139,10 @@ class Bot
     public function sendPhoto($chat_id, $photo, $caption = null, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->requestWithFile('sendPhoto', [
-            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'photo', 'contents' => $photo],
             ['name' => 'caption', 'contents' => $caption],
-            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
@@ -160,9 +160,9 @@ class Bot
     public function sendAudio($chat_id, $audio, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->requestWithFile('sendAudio', [
-            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'audio', 'contents' => $audio],
-            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
@@ -180,9 +180,9 @@ class Bot
     public function sendDocument($chat_id, $document, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->requestWithFile('sendAudio', [
-            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'document', 'contents' => $document],
-            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
@@ -200,9 +200,9 @@ class Bot
     public function sendSticker($chat_id, $sticker, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->requestWithFile('sendAudio', [
-            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'sticker', 'contents' => $sticker],
-            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
@@ -220,9 +220,9 @@ class Bot
     public function sendVideo($chat_id, $video, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->requestWithFile('sendAudio', [
-            ['name' => 'chat_id', 'contents' => $chat_id],
+            ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'video', 'contents' => $video],
-            ['name' => 'reply_to_message_id', 'contents' => $reply_to_message_id],
+            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
             ['name' => 'reply_markup', 'contents' => $reply_markup]
         ]));
     }
@@ -381,6 +381,10 @@ class Bot
      */
     public function createUpdateFromRequest()
     {
-        return [new Update(json_decode(file_get_contents('php://input'), true))];
+        if (!empty(file_get_contents('php://input'))) {
+            return [new Update(json_decode(file_get_contents('php://input'), true))];
+        } else {
+            return [];
+        }
     }
 }
