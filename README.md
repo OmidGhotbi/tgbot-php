@@ -22,7 +22,7 @@ If you have any questions, [here i am](https://telegram.me/TotallyNotABot).
 
 # Testing
 
-`vendor/bin/phpunit`
+`composer test`
 
 # Usage
 

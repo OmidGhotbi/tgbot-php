@@ -30,4 +30,9 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(User::class, $this->message->from);
     }
+    
+    public function testDate()
+    {
+        $this->assertAttributeEquals(1435350662, 'date', $this->message);
+    }
 }
