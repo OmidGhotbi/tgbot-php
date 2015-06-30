@@ -11,7 +11,7 @@ class ReplyKeyboardHide
      * 
      * @var boolean
      */
-    public $hide_keyboard = true;
+    protected $hide_keyboard = true;
     
     /**
      * Optional. Use this parameter if you want to hide keyboard for specific users only. Targets:
@@ -22,7 +22,7 @@ class ReplyKeyboardHide
      * 
      * @var boolean
      */
-    public $selective;
+    protected $selective;
     
     /**
      * @param boolean $selective
