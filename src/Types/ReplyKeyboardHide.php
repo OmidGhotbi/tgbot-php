@@ -4,14 +4,14 @@ namespace Pathetic\TgBot\Types;
 
 class ReplyKeyboardHide
 {
-    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
+    use \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Requests clients to hide the custom keyboard.
      * 
      * @var boolean
      */
-    public $hide_keyboard;
+    public $hide_keyboard = true;
     
     /**
      * Optional. Use this parameter if you want to hide keyboard for specific users only. Targets:
@@ -23,4 +23,20 @@ class ReplyKeyboardHide
      * @var boolean
      */
     public $selective;
+    
+    /**
+     * @param boolean $selective
+     */
+    public function __construct($selective = false)
+    {
+        $this->selective = (boolean) $selective;
+    }
+    
+    public function __toString()
+    {
+        return json_encode([
+            'hide_keyboard' => $this->hide_keyboard,
+            'selctive' => $this->selective
+        ]);
+    }
 }

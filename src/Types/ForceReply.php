@@ -4,14 +4,14 @@ namespace Pathetic\TgBot\Types;
 
 class ForceReply
 {
-    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
+    use \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'.
      * 
      * @var boolean
      */
-    public $force_reply;
+    protected $force_reply = true;
     
     /**
      * Optional. Use this parameter if you want to force reply from specific users only. Targets:
@@ -20,5 +20,21 @@ class ForceReply
      * 
      * @var boolean
      */
-    public $selective;
+    protected $selective;
+    
+    /**
+     * @param boolean $selective
+     */
+    public function __construct($selective = false)
+    {
+        $this->selective = (boolean) $selective;
+    }
+    
+    public function __toString()
+    {
+        return json_encode([
+            'force_reply' => $this->force_reply,
+            'selective' => $this->selective
+        ]);
+    }
 }

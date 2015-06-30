@@ -4,7 +4,7 @@ namespace Pathetic\TgBot\Types;
 
 class ReplyKeyboardMarkup
 {
-    use \Pathetic\TgBot\TypeInitialization, \Pathetic\TgBot\PropertiesEasyAccess;
+    use \Pathetic\TgBot\PropertiesEasyAccess;
     
     /**
      * Array of button rows, each represented by an Array of Strings.
@@ -19,14 +19,14 @@ class ReplyKeyboardMarkup
      * 
      * @var boolean
      */
-    public $resize_keyboard;
+    public $resize_keyboard = false;
     
     /**
      * Optional. Requests clients to hide the keyboard as soon as it's been used. Defaults to false.
      * 
      * @var boolean
      */
-    public $one_time_keyboard;
+    public $one_time_keyboard = false;
     
     /**
      * Optional. Use this parameter if you want to show the keyboard to specific users only. Targets:
@@ -37,5 +37,36 @@ class ReplyKeyboardMarkup
      * 
      * @var boolean
      */
-    public $selective;
+    public $selective = false;
+    
+    /**
+     * @param array $keyboard array of arrays
+     * @param array $options
+     */
+    public function __construct(array $keyboard, array $options = [])
+    {
+        $this->keyboard = $keyboard;
+        
+        if (isset($options['resize_keyboard'])) {
+            $this->resize_keyboard = (boolean) $options['resize_keyboard'];
+        }
+        
+        if (isset($options['one_time_keyboard'])) {
+            $this->one_time_keyboard = (boolean) $options['one_time_keyboard'];
+        }
+        
+        if (isset($options['selective'])) {
+            $this->selective = (boolean) $options['selective'];
+        }
+    }
+    
+    public function __toString()
+    {
+        return json_encode([
+            'keyboard' => $this->keyboard,
+            'resize_keyboard' => $this->resize_keyboard,
+            'one_time_keyboard' => $this->one_time_keyboard,
+            'selective' => $this->selective
+        ]);
+    }
 }

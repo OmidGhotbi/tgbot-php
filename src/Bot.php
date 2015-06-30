@@ -108,6 +108,8 @@ class Bot
      */
     public function sendMessage($chat_id, $text, $disable_web_page_preview = false, $reply_to_message_id = null, $reply_markup = null)
     {
+        $reply_markup = (string) $reply_markup;
+        
         return new Message($this->request('sendMessage', compact('chat_id', 'text', 'disable_web_page_preview', 'reply_to_message_id', 'reply_markup')));
     }
     
@@ -141,9 +143,9 @@ class Bot
         return new Message($this->requestWithFile('sendPhoto', [
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'photo', 'contents' => $photo],
-            ['name' => 'caption', 'contents' => $caption],
+            ['name' => 'caption', 'contents' => (string) $caption],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => $reply_markup]
+            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
         ]));
     }
     
@@ -163,7 +165,7 @@ class Bot
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'audio', 'contents' => $audio],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => $reply_markup]
+            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
         ]));
     }
     
@@ -183,7 +185,7 @@ class Bot
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'document', 'contents' => $document],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => $reply_markup]
+            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
         ]));
     }
     
@@ -203,7 +205,7 @@ class Bot
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'sticker', 'contents' => $sticker],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => $reply_markup]
+            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
         ]));
     }
     
@@ -223,7 +225,7 @@ class Bot
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'video', 'contents' => $video],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => $reply_markup]
+            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
         ]));
     }
     
@@ -240,6 +242,8 @@ class Bot
      */
     public function sendLocation($chat_id, $latitude, $longitude, $reply_to_message_id = null, $reply_markup = null)
     {
+        $reply_markup = (string) $reply_markup;
+        
         return new Message($this->request('sendLocation', compact('chat_id', 'latitude', 'longitude', 'reply_to_message_id', 'reply_markup')));
     }
     
