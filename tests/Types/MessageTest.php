@@ -24,15 +24,25 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     {
         $this->message = new Message([
             'message_id' => 123,
-            'from' => ['id' => 1245125, 'first_name' => 'John'],
+            'from' => [],
             'date' => 1435350662,
-            'forward_from' => ['id' => 1245125, 'first_name' => 'John'],
+            'forward_from' => [],
             'forward_date' => 1435350663,
-            'reply_to_message' => ['message_id' => 100, 'from' => ['id' => 1245124, 'first_name' => 'John']],
+            'reply_to_message' => [],
             'text' => 'message text',
-            'audio' => ['file_id' => 'AwADAgADAgAD3xCtBRZ1GtpgRnK5Ag', 'duration' => 1, 'mime_type' => 'audio/mpeg', 'file_size' => 15516232],
-            'document' => ['file_id' => 'BQADAgADAwAD3xCtBYugqHR82MqwAg', 'thumb' => [], 'file_name' => 'test.txt', 'file_size' => 38],
-            'photo' => []
+            'audio' => [],
+            'document' => [],
+            'photo' => [],
+            'sticker' => [],
+            'video' => [],
+            'contact' => [],
+            'location' => [],
+            'new_chat_participant' => [],
+            'left_chat_participant' => [],
+            'new_chat_title' => 'test',
+            'new_chat_photo' => [[], [], [], []],
+            'delete_chat_photo' => true,
+            'group_chat_created' => true
         ]);
     }
     
@@ -43,7 +53,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     
     public function testFrom()
     {
-        $this->assertInstanceOf(User::class, $this->message->from);
+        $this->assertAttributeInstanceOf(User::class, 'from', $this->message);
     }
     
     public function testDate()
@@ -54,18 +64,18 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testChatUser()
     {
         $this->message->chat = new User(['id' => 1245125, 'first_name' => 'John']);
-        $this->assertInstanceOf(User::class, $this->message->chat);
+        $this->assertAttributeInstanceOf(User::class, 'chat', $this->message);
     }
     
     public function testChatGroupChat()
     {
         $this->message->chat = new GroupChat(['id' => 1245126, 'title' => 'Test group']);
-        $this->assertInstanceOf(GroupChat::class, $this->message->chat);
+        $this->assertAttributeInstanceOf(GroupChat::class, 'chat', $this->message);
     }
     
     public function testForwardFrom()
     {
-        $this->assertInstanceOf(User::class, $this->message->forward_from);
+        $this->assertAttributeInstanceOf(User::class, 'forward_from', $this->message);
     }
     
     public function testForwardDate()
@@ -75,7 +85,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     
     public function testReplyToMessage()
     {
-        $this->assertInstanceOf(Message::class, $this->message->reply_to_message);
+        $this->assertAttributeInstanceOf(Message::class, 'reply_to_message', $this->message);
     }
     
     public function testText()
@@ -85,16 +95,61 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     
     public function testAudio()
     {
-        $this->assertInstanceOf(Audio::class, $this->message->audio);
+        $this->assertAttributeInstanceOf(Audio::class, 'audio', $this->message);
     }
     
     public function testDocument()
     {
-        $this->assertInstanceOf(Document::class, $this->message->document);
+        $this->assertAttributeInstanceOf(Document::class, 'document', $this->message);
     }
     
     public function testPhoto()
     {
         $this->assertAttributeEmpty('photo', $this->message);
+    }
+    
+    public function testSticker()
+    {
+        $this->assertAttributeInstanceOf(Sticker::class, 'sticker', $this->message);
+    }
+    
+    public function testVideo()
+    {
+        $this->assertAttributeInstanceOf(Video::class, 'video', $this->message);
+    }
+    
+    public function testContact()
+    {
+        $this->assertAttributeInstanceOf(Contact::class, 'contact', $this->message);
+    }
+    
+    public function testLocation()
+    {
+        $this->assertAttributeInstanceOf(Location::class, 'location', $this->message);
+    }
+    
+    public function testNewChatParticipant()
+    {
+        $this->assertAttributeInstanceOf(User::class, 'new_chat_participant', $this->message);
+    }
+    
+    public function testNewChatTitle()
+    {
+        $this->assertAttributeEquals('test', 'new_chat_title', $this->message);
+    }
+    
+    public function testNewChatPhoto()
+    {
+        $this->assertAttributeNotEmpty('new_chat_photo', $this->message);
+    }
+    
+    public function testDeleteChatPhoto()
+    {
+        $this->assertAttributeEquals(true, 'delete_chat_photo', $this->message);
+    }
+    
+    public function testGroupChatCreated()
+    {
+        $this->assertAttributeEquals(true, 'group_chat_created', $this->message);
     }
 }

@@ -24,7 +24,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     
     public function testThumb()
     {
-        $this->assertInstanceOf(PhotoSize::class, $this->document->thumb);
+        $this->assertAttributeInstanceOf(PhotoSize::class, 'thumb', $this->document);
     }
     
     public function testFileName()
