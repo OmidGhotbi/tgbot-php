@@ -1,6 +1,6 @@
 <?php
 
-namespace Pathetic\TgBot\Tests;
+namespace Pathetic\TgBot\Tests\Types;
 
 use Pathetic\TgBot\Types\User;
 

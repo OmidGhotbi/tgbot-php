@@ -1,6 +1,6 @@
 <?php
 
-namespace Pathetic\TgBot\Tests;
+namespace Pathetic\TgBot\Tests\Types;
 
 use Pathetic\TgBot\Types\Document;
 use Pathetic\TgBot\Types\PhotoSize;

@@ -7,7 +7,10 @@ use ReflectionFunction;
 use GuzzleHttp\Client;
 use Pathetic\TgBot\EventSystem;
 use Pathetic\TgBot\Exception as TgBotException;
+use Pathetic\TgBot\Types\ForceReply;
 use Pathetic\TgBot\Types\Message;
+use Pathetic\TgBot\Types\ReplyKeyboardMarkup;
+use Pathetic\TgBot\Types\ReplyKeyboardHide;
 use Pathetic\TgBot\Types\Update;
 use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\UserProfilePhotos;
@@ -311,6 +314,9 @@ class Bot
     }
     
     /**
+     * Use this method to add an event.
+     * If first closure will return true (or if you are passed null instead of closure), second one will be executed.
+     * 
      * @param \Closure|null $check
      * @param \Closure      $event
      * 
@@ -324,6 +330,8 @@ class Bot
     }
     
     /**
+     * Use this method to add command. Parameters will be automatically parsed and passed to closure.
+     * 
      * @param string    $name
      * @param \Closure  $action
      * 
@@ -371,6 +379,8 @@ class Bot
     }
     
     /**
+     * Use this method to handle updates.
+     * 
      * @param array $updates
      */
     public function handle(array $updates)
@@ -390,5 +400,36 @@ class Bot
         } else {
             return [];
         }
+    }
+    
+    /**
+     * @param boolean $selective
+     * 
+     * @return \Pathetic\TgBot\Types\ForceReply
+     */
+    public function forceReply($selective = false)
+    {
+        return new ForceReply($selective);
+    }
+    
+    /**
+     * @param array $keyboard
+     * @param array $markup
+     * 
+     * @return \Pathetic\TgBot\Types\ReplyKeyboardMarkup
+     */
+    public function replyKeyboardMarkup(array $keyboard, array $options = [])
+    {
+        return new ReplyKeyboardMarkup($keyboard, $options);
+    }
+    
+    /**
+     * @param boolean $selective
+     * 
+     * @return \Pathetic\TgBot\Types\ReplyKeyboardHide
+     */
+    public function replyKeyboardHide($selective = false)
+    {
+        return new ReplyKeyboardHide($selective);
     }
 }
