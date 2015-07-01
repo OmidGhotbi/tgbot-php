@@ -414,7 +414,7 @@ class Bot
     
     /**
      * @param array $keyboard
-     * @param array $markup
+     * @param array $options
      * 
      * @return \Pathetic\TgBot\Types\ReplyKeyboardMarkup
      */
