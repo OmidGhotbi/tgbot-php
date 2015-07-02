@@ -11,12 +11,12 @@ If you have any questions, [here i am](https://telegram.me/TotallyNotABot).
 
 # Installation
 
-`composer require pathetic/tgbot`
+`composer require pathetic/tgbot:~1.1`
 
 ```json
 {
   "require": {
-    "pathetic/tgbot": "dev-master"
+    "pathetic/tgbot": "~1.1"
   }
 }
 ```
