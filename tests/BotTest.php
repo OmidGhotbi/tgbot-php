@@ -112,7 +112,7 @@ class BotTest extends \PHPUnit_Framework_TestCase
     
     public function testCommand()
     {
-        $this->assertInstanceOf(Bot::class, $this->command('test', function(Message $message) {
+        $this->assertInstanceOf(Bot::class, $this->bot->command('test', function(Message $message) {
             return isset($message);
         }));
     }
