@@ -34,11 +34,12 @@ class Bot
     
     /**
      * @param string $token
+     * @param \GuzzleHttp\Client|null $httpClient
      */
-    public function __construct($token)
+    public function __construct($token, $httpClient = null)
     {
         $this->token = $token;
-        $this->httpClient = new Client();
+        $this->httpClient = isset($httpClient) ? $httpClient : new Client();
         $this->events = new EventSystem();
     }
     
