@@ -88,6 +88,35 @@ class BotTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($this->bot->getUpdates());
     }
     
+    public function testSetWebhook()
+    {
+        $this->bot = new Bot('123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11', new Client(['handler' => HandlerStack::create(new MockHandler([
+            new Response(200, [], json_encode(['ok' => true, 'result' => true]))
+        ]))]));
+        
+        $this->assertTrue($this->bot->setWebhook());
+    }
+    
+    public function testOn()
+    {
+        $this->assertInstanceOf(Bot::class, $this->bot->on(
+            function (Message $message) {
+                return isset($message);
+            },
+            
+            function (Message $message) {
+                return isset($message);
+            }
+        ));
+    }
+    
+    public function testCommand()
+    {
+        $this->assertInstanceOf(Bot::class, $this->command('test', function(Message $message) {
+            return isset($message);
+        }));
+    }
+    
     public function testCreateUpdateFromRequest()
     {
         $this->assertEmpty($this->bot->createUpdateFromRequest());

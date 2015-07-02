@@ -21,11 +21,11 @@ class EventSystemTest extends \PHPUnit_Framework_TestCase
     {
         $this->eventSystem->add(
             function(Message $message) {
-                return true;
+                return isset($message);
             },
             
             function(Message $message) {
-                return true;
+                return isset($message);
             }
         );
         
