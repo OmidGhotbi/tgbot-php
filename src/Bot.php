@@ -6,11 +6,9 @@ use Closure;
 use ReflectionFunction;
 use GuzzleHttp\Client;
 use Pathetic\TgBot\EventSystem;
+use Pathetic\TgBot\ReplyMarkupFactory;
 use Pathetic\TgBot\Exception as TgBotException;
-use Pathetic\TgBot\Types\ForceReply;
 use Pathetic\TgBot\Types\Message;
-use Pathetic\TgBot\Types\ReplyKeyboardMarkup;
-use Pathetic\TgBot\Types\ReplyKeyboardHide;
 use Pathetic\TgBot\Types\Update;
 use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\UserProfilePhotos;
@@ -403,33 +401,10 @@ class Bot
     }
     
     /**
-     * @param boolean $selective
-     * 
-     * @return \Pathetic\TgBot\Types\ForceReply
+     * @return \Pathetic\TgBot\ReplyMarkupFactory
      */
-    public function forceReply($selective = false)
+    public function make()
     {
-        return new ForceReply($selective);
-    }
-    
-    /**
-     * @param array $keyboard
-     * @param array $options
-     * 
-     * @return \Pathetic\TgBot\Types\ReplyKeyboardMarkup
-     */
-    public function replyKeyboardMarkup(array $keyboard, array $options = [])
-    {
-        return new ReplyKeyboardMarkup($keyboard, $options);
-    }
-    
-    /**
-     * @param boolean $selective
-     * 
-     * @return \Pathetic\TgBot\Types\ReplyKeyboardHide
-     */
-    public function replyKeyboardHide($selective = false)
-    {
-        return new ReplyKeyboardHide($selective);
+        return new ReplyMarkupFactory();
     }
 }

@@ -3,9 +3,7 @@
 namespace Pathetic\TgBot\Tests;
 
 use Pathetic\TgBot\Bot;
-use Pathetic\TgBot\Types\ForceReply;
-use Pathetic\TgBot\Types\ReplyKeyboardMarkup;
-use Pathetic\TgBot\Types\ReplyKeyboardHide;
+use Pathetic\TgBot\ReplyMarkupFactory;
 
 class BotTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,18 +22,8 @@ class BotTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($this->bot->createUpdateFromRequest());
     }
     
-    public function testForceReply()
+    public function testMake()
     {
-        $this->assertInstanceOf(ForceReply::class, $this->bot->forceReply());
-    }
-    
-    public function testReplyKeyboardMarkup()
-    {
-        $this->assertInstanceOf(ReplyKeyboardMarkup::class, $this->bot->replyKeyboardMarkup([['TEST']]));
-    }
-    
-    public function testReplyKeyboardHide()
-    {
-        $this->assertInstanceOf(ReplyKeyboardHide::class, $this->bot->replyKeyboardHide());
+        $this->assertInstanceOf(ReplyMarkupFactory::class, $this->bot->make());
     }
 }
