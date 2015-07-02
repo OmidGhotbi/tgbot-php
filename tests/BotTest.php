@@ -6,10 +6,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
+use Pathetic\TgBot\Actions;
 use Pathetic\TgBot\Bot;
 use Pathetic\TgBot\ReplyMarkupFactory;
 use Pathetic\TgBot\Types\Message;
 use Pathetic\TgBot\Types\User;
+use Pathetic\TgBot\Types\Update;
+use Pathetic\TgBot\Types\UserProfilePhotos;
 
 class BotTest extends \PHPUnit_Framework_TestCase
 {
@@ -38,6 +41,51 @@ class BotTest extends \PHPUnit_Framework_TestCase
     public function testForwardMessage()
     {
         $this->assertInstanceOf(Message::class, $this->bot->forwardMessage(321, 321, 123));
+    }
+    
+    public function testSendPhoto()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendPhoto(321, 'test'));
+    }
+    
+    public function testSendAudio()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendAudio(321, 'test'));
+    }
+    
+    public function testSendDocument()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendDocument(321, 'test'));
+    }
+    
+    public function testSendSticker()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendSticker(321, 'test'));
+    }
+    
+    public function testSendVideo()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendVideo(321, 'test'));
+    }
+    
+    public function testSendLocation()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendLocation(123, 41.740104, -71.560718));
+    }
+    
+    public function testSendChatAction()
+    {
+        $this->assertInstanceOf(Message::class, $this->bot->sendChatAction(321, Actions::TYPING));
+    }
+    
+    public function testGetUserProfilePhotos()
+    {
+        $this->assertInstanceOf(UserProfilePhotos::class, $this->bot->getUserProfilePhotos(123));
+    }
+    
+    public function testGetUpdates()
+    {
+        $this->assertEmpty($this->bot->getUpdates());
     }
     
     public function testCreateUpdateFromRequest()
