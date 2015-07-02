@@ -1,5 +1,6 @@
 # tgbot-php
 
+[![Packagist](https://img.shields.io/packagist/v/pathetic/tgbot.svg?style=flat-square)](https://packagist.org/packages/pathetic/tgbot)
 [![Travis](https://img.shields.io/travis/pathetic/tgbot-php.svg?style=flat-square)](https://travis-ci.org/pathetic/tgbot-php)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/pathetic/tgbot-php.svg?style=flat-square)](https://scrutinizer-ci.com/g/pathetic/tgbot-php/)
 [![Code Climate](https://img.shields.io/codeclimate/github/pathetic/tgbot-php.svg?style=flat-square)](https://codeclimate.com/github/pathetic/tgbot-php)
