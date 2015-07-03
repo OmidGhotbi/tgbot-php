@@ -203,7 +203,7 @@ class Bot
      */
     public function sendSticker($chat_id, $sticker, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendAudio', [
+        return new Message($this->requestWithFile('sendSticker', [
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'sticker', 'contents' => $sticker],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
@@ -223,7 +223,7 @@ class Bot
      */
     public function sendVideo($chat_id, $video, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendAudio', [
+        return new Message($this->requestWithFile('sendVideo', [
             ['name' => 'chat_id', 'contents' => (string) $chat_id],
             ['name' => 'video', 'contents' => $video],
             ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
