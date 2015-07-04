@@ -47,6 +47,8 @@ class Bot
      * @param string $method
      * @param array  $parameters
      * 
+     * @return array
+     * 
      * @throws \Pathetic\TgBot\Exception
      */
     protected function request($method, array $parameters = [])
@@ -68,6 +70,8 @@ class Bot
     /**
      * @param string $method
      * @param array  $parameters
+     * 
+     * @return array
      * 
      * @throws \Pathetic\TgBot\Exception
      */
