@@ -2,7 +2,9 @@
 
 namespace Pathetic\TgBot\Types;
 
-class ReplyKeyboardHide
+use JsonSerializable;
+
+class ReplyKeyboardHide implements JsonSerializable
 {
     use \Pathetic\TgBot\PropertiesEasyAccess;
     
@@ -32,11 +34,11 @@ class ReplyKeyboardHide
         $this->selective = (boolean) $selective;
     }
     
-    public function __toString()
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'hide_keyboard' => $this->hide_keyboard,
             'selctive' => $this->selective
-        ]);
+        ];
     }
 }

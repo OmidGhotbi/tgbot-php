@@ -2,7 +2,9 @@
 
 namespace Pathetic\TgBot\Types;
 
-class ForceReply
+use JsonSerializable;
+
+class ForceReply implements JsonSerializable
 {
     use \Pathetic\TgBot\PropertiesEasyAccess;
     
@@ -30,11 +32,11 @@ class ForceReply
         $this->selective = (boolean) $selective;
     }
     
-    public function __toString()
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'force_reply' => $this->force_reply,
             'selective' => $this->selective
-        ]);
+        ];
     }
 }

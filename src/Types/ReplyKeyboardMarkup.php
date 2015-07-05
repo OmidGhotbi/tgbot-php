@@ -2,7 +2,9 @@
 
 namespace Pathetic\TgBot\Types;
 
-class ReplyKeyboardMarkup
+use JsonSerializable;
+
+class ReplyKeyboardMarkup implements JsonSerializable
 {
     use \Pathetic\TgBot\PropertiesEasyAccess;
     
@@ -60,13 +62,13 @@ class ReplyKeyboardMarkup
         }
     }
     
-    public function __toString()
+    public function jsonSerialize()
     {
-        return json_encode([
+        return [
             'keyboard' => $this->keyboard,
             'resize_keyboard' => $this->resize_keyboard,
             'one_time_keyboard' => $this->one_time_keyboard,
             'selective' => $this->selective
-        ]);
+        ];
     }
 }

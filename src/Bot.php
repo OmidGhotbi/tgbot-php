@@ -3,6 +3,7 @@
 namespace Pathetic\TgBot;
 
 use Closure;
+use JsonSerializable;
 use ReflectionFunction;
 use GuzzleHttp\Client;
 use Pathetic\TgBot\EventSystem;
@@ -56,7 +57,11 @@ class Bot
         $query = [];
         
         foreach ($parameters as $key => $value) {
-            if (!is_resource($value)) {
+            if ($value instanceof JsonSerializable) {
+                $value = json_encode($value);
+            }
+            
+            if (!is_resource($value) && !is_string($value)) {
                 $value = (string) $value;
             }
             
@@ -83,7 +88,7 @@ class Bot
         if (!$response['ok']) {
             throw new TgBotException($response['description'], $response['error_code']);
         }
-        
+
         return $response['result'];
     }
     
