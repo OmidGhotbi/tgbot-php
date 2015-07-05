@@ -15,7 +15,7 @@ use Pathetic\TgBot\Types\PhotoSize;
 
 trait TypeInitialization
 {
-    public function __construct(array $properties)
+    public function __construct($properties)
     {
         $needToBeConvertedInObject = [
             'message' => Message::class,
@@ -51,21 +51,28 @@ trait TypeInitialization
                                 break;
                                 
                             case 'photo':
-                            case 'photos':
                             case 'new_chat_photo':
+                                $photos = [];
                                 
-                                $array = [];
+                                foreach ($value as $photoSize) {
+                                    $photos[] = new $needToBeConvertedInObject[$property][0]($photoSize);
+                                };
+
+                                $this->$property = $photos;
+                                break;
+                                
+                            case 'photos':
+                                $photos = [];
                                 
                                 foreach ($value as $photoSize) {
                                     $nestedArray = [];
                                     foreach ($photoSize as $photoArray) {
                                         $nestedArray[] = new $needToBeConvertedInObject[$property][0]($photoArray);
                                     }
-                                    $array[] = $nestedArray;
-                                    unset($nestedArray);
+                                    $photos[] = $nestedArray;
                                 };
 
-                                $this->$property = $array;
+                                $this->$property = $photos;
                                 break;
                         }
                     } else {

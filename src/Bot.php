@@ -53,34 +53,30 @@ class Bot
      */
     protected function request($method, array $parameters = [])
     {
-        $response = (string) $this->httpClient->post(self::API_URL . 'bot' . $this->token . '/' . $method, [
-            'exceptions' => false,
-            'form_params' => $parameters,
-        ])->getBody();
+        $query = [];
         
-        $response = json_decode($response, true);
-        
-        if (!$response['ok']) {
-            throw new TgBotException($response['description'], $response['error_code']);
+        foreach ($parameters as $key => $value) {
+            if (!is_resource($value)) {
+                $value = (string) $value;
+            }
+            
+            if (empty($value)) {
+                continue;
+            }
+            
+            $query[] = [
+                'name' => $key,
+                'contents' => $value
+            ];
         }
         
-        return $response['result'];
-    }
-    
-    /**
-     * @param string $method
-     * @param array  $parameters
-     * 
-     * @return array
-     * 
-     * @throws \Pathetic\TgBot\Exception
-     */
-    protected function requestWithFile($method, array $parameters = [])
-    {
-        $response = (string) $this->httpClient->post(self::API_URL . 'bot' . $this->token . '/' . $method, [
-            'exceptions' => false,
-            'multipart' => $parameters,
-        ])->getBody();
+        $array = ['exceptions' => false];
+        
+        if (!empty($query)) {
+            $array = array_merge($array, ['multipart' => $query]);
+        }
+
+        $response = (string) $this->httpClient->post(self::API_URL . 'bot' . $this->token . '/' . $method, $array)->getBody();
         
         $response = json_decode($response, true);
         
@@ -114,8 +110,6 @@ class Bot
      */
     public function sendMessage($chat_id, $text, $disable_web_page_preview = false, $reply_to_message_id = null, $reply_markup = null)
     {
-        $reply_markup = (string) $reply_markup;
-        
         return new Message($this->request('sendMessage', compact('chat_id', 'text', 'disable_web_page_preview', 'reply_to_message_id', 'reply_markup')));
     }
     
@@ -146,13 +140,7 @@ class Bot
      */
     public function sendPhoto($chat_id, $photo, $caption = null, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendPhoto', [
-            ['name' => 'chat_id', 'contents' => (string) $chat_id],
-            ['name' => 'photo', 'contents' => $photo],
-            ['name' => 'caption', 'contents' => (string) $caption],
-            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
-        ]));
+        return new Message($this->request('sendPhoto', compact('chat_id', 'photo', 'caption', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
@@ -167,12 +155,7 @@ class Bot
      */
     public function sendAudio($chat_id, $audio, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendAudio', [
-            ['name' => 'chat_id', 'contents' => (string) $chat_id],
-            ['name' => 'audio', 'contents' => $audio],
-            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
-        ]));
+        return new Message($this->request('sendAudio', compact('chat_id', 'audio', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
@@ -187,12 +170,7 @@ class Bot
      */
     public function sendDocument($chat_id, $document, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendDocument', [
-            ['name' => 'chat_id', 'contents' => (string) $chat_id],
-            ['name' => 'document', 'contents' => $document],
-            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
-        ]));
+        return new Message($this->request('sendDocument', compact('chat_id', 'document', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
@@ -207,12 +185,7 @@ class Bot
      */
     public function sendSticker($chat_id, $sticker, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendSticker', [
-            ['name' => 'chat_id', 'contents' => (string) $chat_id],
-            ['name' => 'sticker', 'contents' => $sticker],
-            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
-        ]));
+        return new Message($this->request('sendSticker', compact('chat_id', 'sticker', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
@@ -227,12 +200,7 @@ class Bot
      */
     public function sendVideo($chat_id, $video, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->requestWithFile('sendVideo', [
-            ['name' => 'chat_id', 'contents' => (string) $chat_id],
-            ['name' => 'video', 'contents' => $video],
-            ['name' => 'reply_to_message_id', 'contents' => (string) $reply_to_message_id],
-            ['name' => 'reply_markup', 'contents' => (string) $reply_markup]
-        ]));
+        return new Message($this->request('sendPhoto', compact('chat_id', 'video', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
@@ -248,8 +216,6 @@ class Bot
      */
     public function sendLocation($chat_id, $latitude, $longitude, $reply_to_message_id = null, $reply_markup = null)
     {
-        $reply_markup = (string) $reply_markup;
-        
         return new Message($this->request('sendLocation', compact('chat_id', 'latitude', 'longitude', 'reply_to_message_id', 'reply_markup')));
     }
     
