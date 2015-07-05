@@ -100,11 +100,11 @@ class BotTest extends \PHPUnit_Framework_TestCase
     public function testOn()
     {
         $this->assertInstanceOf(Bot::class, $this->bot->on(
-            function (Message $message) {
+            function(Message $message) {
                 return isset($message);
             },
             
-            function (Message $message) {
+            function(Message $message) {
                 return isset($message);
             }
         ));

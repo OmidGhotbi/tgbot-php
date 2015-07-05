@@ -7,7 +7,6 @@ use Pathetic\TgBot\Types\User;
 use Pathetic\TgBot\Types\GroupChat;
 use Pathetic\TgBot\Types\Audio;
 use Pathetic\TgBot\Types\Document;
-use Pathetic\TgBot\Types\Photo;
 use Pathetic\TgBot\Types\Sticker;
 use Pathetic\TgBot\Types\Video;
 use Pathetic\TgBot\Types\Contact;
