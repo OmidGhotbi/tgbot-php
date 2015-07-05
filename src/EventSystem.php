@@ -33,7 +33,7 @@ class EventSystem
     public function handle(Message $message)
     {
         foreach ($this->events as $event) {
-            if (null === $event['check'] || is_callable($event['check']) &&  $event['check']($message)) {
+            if (null === $event['check'] || is_callable($event['check']) && $event['check']($message)) {
                 if (false === $event['action']($message)) {
                     break;
                 }
