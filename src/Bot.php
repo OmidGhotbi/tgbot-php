@@ -135,10 +135,10 @@ class Bot
     /**
      * Use this method to send photos. On success, the sent Message is returned.
      * 
-     * @param integer      $chat_id  Unique identifier for the message recipient — User or GroupChat id.
-     * @param resource     $photo    Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
-     * @param string|null  $caption  Photo caption (may also be used when resending photos by file_id).
-     * @param integer|null $reply_to_message_id If the message is a reply, ID of the original message.
+     * @param integer           $chat_id  Unique identifier for the message recipient — User or GroupChat id.
+     * @param resource|string   $photo    Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
+     * @param string|null       $caption  Photo caption (may also be used when resending photos by file_id).
+     * @param integer|null      $reply_to_message_id If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      * 
      * @return \Pathetic\TgBot\Types\Message
@@ -151,9 +151,9 @@ class Bot
     /**
      * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Document). On success, the sent Message is returned.
      * 
-     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @param resource     $audio                 Audio file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
-     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param integer           $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param resource|string   $audio                 Audio file to send. You can either pass a file_id as String to resend an audio that is already on the Telegram servers, or upload a new audio file using multipart/form-data.
+     * @param integer|null      $reply_to_message_id   If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
 
      * @return \Pathetic\TgBot\Types\Message
@@ -166,9 +166,9 @@ class Bot
     /**
      * Use this method to send general files. On success, the sent Message is returned.
      * 
-     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @param resource     $document              File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
-     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param integer           $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param resource|string   $document              File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
+     * @param integer|null      $reply_to_message_id   If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      * 
      * @return \Pathetic\TgBot\Types\Message
@@ -181,9 +181,9 @@ class Bot
     /**
      * Use this method to send .webp stickers. On success, the sent Message is returned.
      * 
-     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @param resource     $sticker               Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
-     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param integer           $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param resource|string   $sticker               Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
+     * @param integer|null      $reply_to_message_id   If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
@@ -196,9 +196,9 @@ class Bot
     /**
      * Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned.
      * 
-     * @param integer      $chat_id               Unique identifier for the message recipient — User or GroupChat id.
-     * @param resource     $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
-     * @param integer|null $reply_to_message_id   If the message is a reply, ID of the original message.
+     * @param integer           $chat_id               Unique identifier for the message recipient — User or GroupChat id.
+     * @param resource|string   $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
+     * @param integer|null      $reply_to_message_id   If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
