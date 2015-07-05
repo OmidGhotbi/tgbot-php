@@ -1,0 +1,11 @@
+test:
+  pre:
+    - composer self-update
+    - composer install --dev
+
+  override:
+    - composer test
+
+machine:
+  php:
+    version: 5.6
