@@ -15,7 +15,7 @@ use Pathetic\TgBot\Types\PhotoSize;
 
 trait TypeInitialization
 {
-    public function __construct($properties)
+    public function __construct(array $properties)
     {
         $needToBeConvertedInObject = [
             'message' => Message::class,
