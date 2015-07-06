@@ -2,9 +2,7 @@
 
 namespace Pathetic\TgBot\Types;
 
-use JsonSerializable;
-
-class ReplyKeyboardHide implements JsonSerializable
+class ReplyKeyboardHide implements \JsonSerializable
 {
     use \Pathetic\TgBot\PropertiesEasyAccess;
     

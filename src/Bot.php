@@ -45,16 +45,13 @@ class Bot
     }
     
     /**
-     * @param string $method
-     * @param array  $parameters
-     * 
+     * @param array $parameters
+     *
      * @return array
-     * 
-     * @throws \Pathetic\TgBot\Exception
      */
-    protected function request($method, array $parameters = [])
+    protected function formatParemeters(array $parameters)
     {
-        $query = [];
+        $result = [];
         
         foreach ($parameters as $key => $value) {
             if ($value instanceof JsonSerializable) {
@@ -69,11 +66,26 @@ class Bot
                 continue;
             }
             
-            $query[] = [
+            $result[] = [
                 'name' => $key,
                 'contents' => $value
             ];
         }
+        
+        return $result;
+    }
+    
+    /**
+     * @param string $method
+     * @param array  $parameters
+     * 
+     * @return array
+     * 
+     * @throws \Pathetic\TgBot\Exception
+     */
+    protected function request($method, array $parameters = [])
+    {
+        $query = $this->formatParemeters($parameters);
         
         $array = ['exceptions' => false];
         

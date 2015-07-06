@@ -2,9 +2,7 @@
 
 namespace Pathetic\TgBot\Types;
 
-use JsonSerializable;
-
-class ForceReply implements JsonSerializable
+class ForceReply implements \JsonSerializable
 {
     use \Pathetic\TgBot\PropertiesEasyAccess;
     
