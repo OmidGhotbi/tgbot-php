@@ -17,7 +17,7 @@ trait TypeInitialization
 {
     public function __construct(array $properties)
     {
-        $needToBeConvertedInObject = [
+        $types = [
             'message' => Message::class,
             'from' => User::class,
             'chat' => [User::class, GroupChat::class],
@@ -39,14 +39,14 @@ trait TypeInitialization
         
         foreach ($properties as $property => $value) {
             if (null !== $value) {
-                if (isset($needToBeConvertedInObject[$property])) {
-                    if (is_array($needToBeConvertedInObject[$property])) {
+                if (isset($types[$property])) {
+                    if (is_array($types[$property])) {
                         switch ($property) {
                             case 'chat':
                                 if (isset($value['title'])) {
-                                    $this->$property = new $needToBeConvertedInObject[$property][1]($value);
+                                    $this->$property = new $types[$property][1]($value);
                                 } else {
-                                    $this->$property = new $needToBeConvertedInObject[$property][0]($value);
+                                    $this->$property = new $types[$property][0]($value);
                                 }
                                 break;
                                 
@@ -55,7 +55,7 @@ trait TypeInitialization
                                 $photos = [];
                                 
                                 foreach ($value as $photoSize) {
-                                    $photos[] = new $needToBeConvertedInObject[$property][0]($photoSize);
+                                    $photos[] = new $types[$property][0]($photoSize);
                                 };
 
                                 $this->$property = $photos;
@@ -67,7 +67,7 @@ trait TypeInitialization
                                 foreach ($value as $photoSize) {
                                     $nestedArray = [];
                                     foreach ($photoSize as $photoArray) {
-                                        $nestedArray[] = new $needToBeConvertedInObject[$property][0]($photoArray);
+                                        $nestedArray[] = new $types[$property][0]($photoArray);
                                     }
                                     $photos[] = $nestedArray;
                                 };
@@ -76,7 +76,7 @@ trait TypeInitialization
                                 break;
                         }
                     } else {
-                        $this->$property = new $needToBeConvertedInObject[$property]($value);
+                        $this->$property = new $types[$property]($value);
                     }
                 } else {
                     $this->$property = $value;
