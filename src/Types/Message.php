@@ -98,6 +98,13 @@ class Message
     public $video;
     
     /**
+     * Optional. Caption for the photo or video.
+     * 
+     * @var string
+     */
+    public $caption;
+    
+    /**
      * Optional. Message is a shared contact, information about the contact.
      * 
      * @var \Pathetic\TgBot\Types\Contact

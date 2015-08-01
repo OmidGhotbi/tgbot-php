@@ -34,6 +34,7 @@ class MessageTest extends \PHPUnit_Framework_TestCase
             'photo' => [],
             'sticker' => [],
             'video' => [],
+            'caption' => 'test',
             'contact' => [],
             'location' => [],
             'new_chat_participant' => [],
@@ -115,6 +116,11 @@ class MessageTest extends \PHPUnit_Framework_TestCase
     public function testVideo()
     {
         $this->assertAttributeInstanceOf(Video::class, 'video', $this->message);
+    }
+    
+    public function testCaption()
+    {
+        $this->assertAttributeEquals('test', 'caption', $this->message);
     }
     
     public function testContact()

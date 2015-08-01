@@ -21,8 +21,7 @@ class VideoTest extends \PHPUnit_Framework_TestCase
             'duration' => 1,
             'thumb' => [],
             'mime_type' => 'video/mp4',
-            'file_size' => 38,
-            'caption' => 'video'
+            'file_size' => 38
         ]);
     }
     
@@ -59,10 +58,5 @@ class VideoTest extends \PHPUnit_Framework_TestCase
     public function testFileSize()
     {
         $this->assertAttributeEquals(38, 'file_size', $this->video);
-    }
-    
-    public function testCaption()
-    {
-        $this->assertAttributeEquals('video', 'caption', $this->video);
     }
 }

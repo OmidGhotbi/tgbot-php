@@ -54,11 +54,4 @@ class Video
      * @var integer
      */
     public $file_size;
-    
-    /**
-     * Optional. Text description of the video (usually empty).
-     * 
-     * @var string
-     */
-    public $caption;
 }

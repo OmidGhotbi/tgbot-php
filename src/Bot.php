@@ -210,12 +210,14 @@ class Bot
      * 
      * @param integer           $chat_id               Unique identifier for the message recipient — User or GroupChat id.
      * @param resource|string   $video                 Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
+     * @param integer|null      $duration              Duration of sent video in seconds.
+     * @param string|null       $caption               Video caption (may also be used when resending videos by file_id).
      * @param integer|null      $reply_to_message_id   If the message is a reply, ID of the original message.
      * @param \Pathetic\TgBot\Types\ReplyKeyboardMarkup|\Pathetic\TgBot\Types\ReplyKeyboardHide|\Pathetic\TgBot\Types\ForceReply|null $reply_markup Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
      *
      * @return \Pathetic\TgBot\Types\Message
      */
-    public function sendVideo($chat_id, $video, $reply_to_message_id = null, $reply_markup = null)
+    public function sendVideo($chat_id, $video, $duration = null, $caption = null, $reply_to_message_id = null, $reply_markup = null)
     {
         return new Message($this->request('sendPhoto', compact('chat_id', 'video', 'reply_to_message_id', 'reply_markup')));
     }
