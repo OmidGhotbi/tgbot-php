@@ -219,7 +219,7 @@ class Bot
      */
     public function sendVideo($chat_id, $video, $duration = null, $caption = null, $reply_to_message_id = null, $reply_markup = null)
     {
-        return new Message($this->request('sendPhoto', compact('chat_id', 'video', 'reply_to_message_id', 'reply_markup')));
+        return new Message($this->request('sendPhoto', compact('chat_id', 'video', 'duration', 'caption', 'reply_to_message_id', 'reply_markup')));
     }
     
     /**
